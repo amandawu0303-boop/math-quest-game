@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f6f8f1" />
+    <meta name="description" content="帶著小小探險家走進數學森林，蒐集正確答案完成五道關卡。" />
+    <title>小小算術探險隊｜數學闖關</title>
+    <link rel="stylesheet" href="./style.css" />
+    <script defer src="https://cdn.jsdelivr.net/npm/phaser@4.2.1/dist/phaser.min.js"></script>
+    <script defer src="./game.js"></script>
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="topbar">
+        <a class="brand" href="#top" aria-label="小小算術探險隊首頁">
+          <span class="brand-mark" aria-hidden="true">✦</span>
+          <span class="brand-name">MATH <b>QUEST</b></span>
+        </a>
+        <span class="grade-chip"><span aria-hidden="true">🌱</span> 國小數學冒險</span>
+      </header>
+
+      <main id="top">
+        <section class="intro-row" aria-labelledby="page-title">
+          <div class="intro-copy">
+            <p class="eyebrow"><span class="eyebrow-line"></span> READY, SET, SOLVE!</p>
+            <h1 id="page-title">小小算術<span>探險隊</span></h1>
+            <p class="intro-description">走進數學森林，找到正確答案，收集你的星星徽章！</p>
+          </div>
+          <div class="adventure-progress" aria-label="闖關進度">
+            <div class="progress-heading">
+              <span>冒險進度</span>
+              <strong id="stage-label">第 1 關 <i>/ 5</i></strong>
+            </div>
+            <div class="progress-track" aria-hidden="true"><span id="overall-progress"></span></div>
+            <div class="stage-pips" id="stage-pips" aria-hidden="true"></div>
+          </div>
+        </section>
+
+        <section class="game-layout" aria-label="數學闖關遊戲">
+          <div class="board-column">
+            <div class="board-toolbar">
+              <div class="board-live"><span class="live-indicator"></span><span id="board-status">冒險進行中</span></div>
+              <button class="restart-button" id="restart-button" type="button" aria-label="重新開始遊戲" title="重新開始">
+                <span aria-hidden="true">↻</span><span>重新開始</span>
+              </button>
+            </div>
+            <div class="game-frame" id="game-container" aria-label="遊戲地圖。使用方向鍵或 WASD 移動角色，碰到答案球即可作答。"></div>
+            <div class="mobile-controls" aria-label="觸控方向鍵">
+              <button class="direction-button up-button" type="button" data-dir="up" aria-label="向上移動"><span>↑</span></button>
+              <button class="direction-button left-button" type="button" data-dir="left" aria-label="向左移動"><span>←</span></button>
+              <button class="direction-button down-button" type="button" data-dir="down" aria-label="向下移動"><span>↓</span></button>
+              <button class="direction-button right-button" type="button" data-dir="right" aria-label="向右移動"><span>→</span></button>
+            </div>
+            <div class="board-caption">
+              <span><span class="caption-star">✦</span> 找到發光的正確答案球</span>
+              <span>答對 +10 分　<span class="wrong-score">答錯 −5 分</span></span>
+            </div>
+          </div>
+
+          <aside class="side-panel" aria-label="任務資訊">
+            <section class="score-card" aria-label="目前分數">
+              <div class="score-card-top"><span>目前分數</span><span class="score-star" aria-hidden="true">✦</span></div>
+              <div class="score-value"><strong id="score-value">0</strong><span>分</span></div>
+              <p>每答對一題，就能收集 <b>10</b> 分</p>
+            </section>
+
+            <section class="mission-card" aria-labelledby="mission-heading">
+              <div class="mission-topline"><span class="mission-icon" aria-hidden="true">🧭</span><span>本關任務</span><span class="question-count" id="question-count">第 1 題 / 3</span></div>
+              <h2 id="mission-heading">加減小徑</h2>
+              <div class="question-box">
+                <span class="question-label">請找出答案</span>
+                <strong id="question-text">7 + 5 = ?</strong>
+              </div>
+              <div class="question-dots" id="question-dots" aria-label="本關題目進度"></div>
+            </section>
+
+            <div class="feedback-card" id="feedback-card" role="status" aria-live="polite">
+              <span class="feedback-icon" id="feedback-icon" aria-hidden="true">💡</span>
+              <span id="feedback-text">用方向鍵移動，碰到答案球就能作答！</span>
+            </div>
+
+            <section class="how-to-card">
+              <h3><span aria-hidden="true">🎮</span> 怎麼玩</h3>
+              <div class="keyboard-guide" aria-label="鍵盤方向鍵或 WASD">
+                <kbd>↑</kbd><kbd>W</kbd><kbd>↓</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd><kbd>←</kbd><kbd>→</kbd>
+              </div>
+              <p>鍵盤用方向鍵或 WASD；手機用地圖下方的方向鍵。</p>
+            </section>
+          </aside>
+        </section>
+
+        <footer class="page-footer">
+          <span><span class="footer-sparkle">✦</span> 五關、十五道數學挑戰</span>
+          <span>慢慢想、勇敢試，你一定做得到！</span>
+        </footer>
+      </main>
+    </div>
+
+    <div class="completion-overlay" id="completion-overlay" hidden>
+      <section class="completion-card" role="dialog" aria-modal="true" aria-labelledby="completion-title">
+        <div class="completion-confetti" aria-hidden="true">✦　✧　✦</div>
+        <div class="completion-medal" aria-hidden="true">🏆</div>
+        <p class="completion-eyebrow">ADVENTURE COMPLETE</p>
+        <h2 id="completion-title">數學森林大冒險成功！</h2>
+        <p class="completion-copy">你完成了全部五個關卡，真是超級數學探險家！</p>
+        <div class="completion-score"><span>你的總分</span><strong id="final-score">0 分</strong></div>
+        <button class="play-again-button" id="play-again-button" type="button">再玩一次 <span aria-hidden="true">↗</span></button>
+      </section>
+    </div>
+  </body>
+</html>
