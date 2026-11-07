@@ -241,6 +241,7 @@
     startQuestion() {
       if (this.finished) return;
       this.solving = false;
+      this.explorer.setPosition(480, 278);
       this.clearOrbs();
       this.updateHud();
       ui.feedback("用方向鍵移動，碰到答案球就能作答！", "", "💡");
